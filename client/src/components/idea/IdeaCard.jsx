@@ -8,10 +8,10 @@ import Like from "./Like";
 function IdeaCard({ idea }) { 
    
   const [showComment, setShowComment] = useState(false);
-  const [comments, setComments] = useState(idea.comments || []);
-  
+  const [comments, setComments] = useState(idea.comments || []); 
+    
   return (
-    <div className="bg-white shadow-md rounded-lg p-4 mb-4 hover:shadow-lg">
+    <div className="bg-white shadow-md rounded-lg p-4 mb-4 hover:shadow-xl">
       
       <div className="flex justify-between items-start">
         <UserAvatar postedBy={idea.postedBy} createdAt={idea.createdAt}/>
@@ -24,7 +24,7 @@ function IdeaCard({ idea }) {
       <div className="mt-3">
         <p className="text-gray-800">{idea.idea}</p>
       </div>
-
+ 
       {/* Actions */}
       <div className="flex justify-between items-center mt-4 text-gray-600">
         <div className="flex justify-start items-center gap-4">

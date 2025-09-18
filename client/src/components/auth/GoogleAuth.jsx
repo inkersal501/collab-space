@@ -21,24 +21,26 @@ function GoogleAuth() {
   };
 
   return (
-    <div className="mt-6">
-      {/* Divider with "or" */}
+    <div className="mt-6"> 
+
       <div className="flex items-center mb-6">
         <div className="flex-grow h-px bg-gray-300"></div>
         <span className="px-4 text-gray-500 text-sm font-medium">or</span>
         <div className="flex-grow h-px bg-gray-300"></div>
       </div>
-
-      {/* Google Button Wrapper */}
+ 
       <div className="w-full flex justify-center">
         <div>
           <GoogleLogin
             onSuccess={handleGoogleLogin}
             onError={() => console.log("Google Login Failed")}
             size="large"
-            theme="filled_blue"
+            theme="outline"
             text="continue_with"
             ux_mode="popup"
+            useOneTap={false}
+            logo_alignment="left"
+            auto_select={false}
           />
         </div>
       </div>

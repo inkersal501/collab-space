@@ -30,7 +30,7 @@ const Navbar = () => {
             to="/login"
             className="px-4 py-2 rounded-lg bg-white text-indigo-600 font-medium hover:bg-gray-100"
           >
-            Login / Register
+            Sign In / Sign Up
           </Link>
         )}
       </div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "../common/Button";
 import { ideaService } from "@services";
 
-function CreateIdeaForm() {
+function CreateIdeaForm({ isModal = false, closeModal  }) {
 
   const [idea, setIdea] = useState("");
   const [loading, setLoading] = useState(false);
@@ -15,6 +15,7 @@ function CreateIdeaForm() {
     try {
       await ideaService.postIdea(idea);
       setIdea("");
+      if(isModal) closeModal();
     } catch (error) {
       console.error("Error submitting idea:", error);
     } finally {
@@ -23,7 +24,7 @@ function CreateIdeaForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className={`${isModal ? "" : "min-h-screen flex items-center justify-center px-4"}`}>
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl space-y-4"
@@ -49,6 +50,7 @@ function CreateIdeaForm() {
           value={idea}
           onChange={(e) => setIdea(e.target.value)}
           rows={4}
+          required
           placeholder="Share your idea..."
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
         />

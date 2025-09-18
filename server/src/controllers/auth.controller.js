@@ -21,7 +21,7 @@ const login = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         }); 
         const {username, email, avatar, likedIdeas} = user;
-        res.json({message: "Login succesfull.", user:{username, email, avatar, likedIdeas} });
+        res.json({message: "Sign In succesfull.", user:{username, email, avatar, likedIdeas} });
     } catch (error) {
         res.status(500).send({message: error.message});
     }
@@ -30,7 +30,7 @@ const login = async (req, res) => {
 const register = async (req, res) => {
     try { 
         await authService.register(req.body);   
-        res.status(201).send({message: "Registered successfully."});
+        res.status(201).send({message: "Sign Up successfully."});
     } catch (error) {
         res.status(500).send({message: error.message});
     } 
@@ -57,7 +57,7 @@ const google_auth = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         }); 
         const {username, email, avatar, likedIdeas} = user;
-        res.json({message: "Login succesfull.", user:{username, email, avatar, likedIdeas} });
+        res.json({message: "Sign In succesfull.", user:{username, email, avatar, likedIdeas} });
     } catch (error) {
         res.status(500).send({message: error.message});
     }
@@ -93,7 +93,7 @@ const me = async (req, res) => {
 const logout = async (req, res) => {
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
-    res.json({ message: "Logged out successfully" });
+    res.json({ message: "Sign out successfully" });
 };
 
 

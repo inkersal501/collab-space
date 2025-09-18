@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { authService } from "@services";
 import { login } from "@store/authSlice";
 import { toast } from "react-toastify";
+import Button from "../common/Button";
 
 const Login = () => {
 
@@ -30,7 +31,7 @@ const Login = () => {
         navigate("/");
       }
     } catch (error) {
-      console.error("Login failed:", error.message);
+      console.error("Sign In failed:", error.message);
     } finally {
       setLoading(false);
     }
@@ -80,17 +81,7 @@ const Login = () => {
       </div>
 
       {/* Submit Button */}
-      <button
-        type="submit"
-        disabled={loading}
-        className={`w-full text-white py-2 rounded-lg font-medium transition cursor-pointer ${
-          loading
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-gradient-to-r from-indigo-500 to-pink-500 hover:opacity-90"
-        }`}
-      >
-        {loading ? "Login..." : "Login"}
-      </button>
+      <Button type="submit" disabled={loading}>{loading ? "Signing In..." : "Sign In"}</Button>       
     </form>
   );
 };

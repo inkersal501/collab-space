@@ -17,16 +17,16 @@ function List() {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Ideas</h2>
-      <div className="space-y-2 w-1/3">
+    <div className="w-1/2 my-4">
+      {/* <h2 className="text-xl font-bold mb-4">Ideas</h2> */}
+      <div className="space-y-2">
         {data?.ideas?.map((idea) => (
           <IdeaCard key={idea._id} idea={idea} />                     
         ))}
       </div>
 
       {/* Pagination controls */}
-      <div className="flex justify-between items-center mt-4 w-1/3">
+      <div className="flex justify-between items-center mt-4">
         <button
           disabled={page === 1}
           onClick={() => setPage((p) => p - 1)}

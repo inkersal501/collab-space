@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { authService } from "@services";
 import { toast } from "react-toastify";
+import Button from "../common/Button";
 
 const Register = ({ switchTab }) => {
   const [loading, setLoading] = useState(false);
@@ -28,7 +29,7 @@ const Register = ({ switchTab }) => {
         }, 1500);
       }
     } catch (error) {
-      console.error("Registration failed:", error.message);
+      console.error("Sign Up failed:", error.message);
     } finally {
       setLoading(false);
     }
@@ -96,18 +97,8 @@ const Register = ({ switchTab }) => {
         />
       </div>
 
-      {/* Submit */}
-      <button
-        type="submit"
-        disabled={loading}
-        className={`w-full text-white py-2 rounded-lg font-medium transition cursor-pointer ${
-          loading
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-gradient-to-r from-indigo-500 to-pink-500 hover:opacity-90"
-        }`}
-      >
-        {loading ? "Registering..." : "Register"}
-      </button>
+      {/* Submit */} 
+      <Button type="submit" disabled={loading}>{loading ? "Sign Up..." : "Sign Up"}</Button>
     </form>
   );
 };

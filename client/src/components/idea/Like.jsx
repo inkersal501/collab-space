@@ -22,24 +22,20 @@ function Like({ ideaId, ideaLikes }) {
     const handleLike = async () => {
         const isLiking = !userLike;
         setUserLike(isLiking);
- 
-        setLikes((prev) => prev + (isLiking ? 1 : -1));
-
         try {
-        const updatedLikes = await ideaService.likeIdea(ideaId);
-        let likedIdeas = [...(user?.likedIdeas || [])];
-        if (isLiking) {
-            if (!likedIdeas.includes(ideaId)) likedIdeas.push(ideaId);
-        } else {
-            likedIdeas = likedIdeas.filter((id) => id !== ideaId);
-        }
+            const updatedLikes = await ideaService.likeIdea(ideaId);
+            let likedIdeas = [...(user?.likedIdeas || [])];
+            if (isLiking) {
+                if (!likedIdeas.includes(ideaId)) likedIdeas.push(ideaId);
+            } else {
+                likedIdeas = likedIdeas.filter((id) => id !== ideaId);
+            }
 
-        dispatch(login({ ...user, likedIdeas }));
-        setLikes(updatedLikes);
+            dispatch(login({ ...user, likedIdeas }));
+            setLikes(updatedLikes);
         } catch (error) {
             console.error("Failed to like:", error); 
-            setUserLike(!isLiking);
-            setLikes((prev) => prev + (isLiking ? -1 : 1));
+            setUserLike(!isLiking); 
         }
     };
 

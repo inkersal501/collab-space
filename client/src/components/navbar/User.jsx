@@ -17,7 +17,7 @@ function User() {
   const handleLogout = async () => {
     const status = await authService.logout();
     if (status) {
-      toast.success("Logged out successfully!");
+      toast.success("Sign out successfully!");
       dispatch(logout());
       userDropdown.close();
     }
@@ -46,7 +46,7 @@ function User() {
             onClick={handleLogout}
             className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center gap-2"
           >
-            <HiOutlineLogout size={20} /> Logout
+            <HiOutlineLogout size={20} /> Sign Out
           </button>
         </div>
       )}
