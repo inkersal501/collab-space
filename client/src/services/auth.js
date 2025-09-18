@@ -19,7 +19,7 @@ const google_auth = async (idToken) => {
         const result = await api.post(`/auth/google_auth`, {idToken}); 
         if(result.status === 200){
             toast.success(result.data.message);
-           return result.data.user;
+            return result.data.user;
         }            
     } catch (error) {
         toast.error(error.response.data.message);
@@ -62,4 +62,17 @@ const me = async () => {
     }
 };
 
-export default { login, register, google_auth, refresh, me };
+const logout = async () => {
+    try {
+        const result = await api.post(`/auth/logout`);
+        if(result.status === 200){     
+            return true;
+        } else {
+            return false;
+        }        
+    } catch (error) {   
+        console.error(error);
+        return false;
+    }
+};
+export default { login, register, google_auth, refresh, me, logout };

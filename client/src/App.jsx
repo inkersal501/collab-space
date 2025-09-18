@@ -1,12 +1,17 @@
 import './App.css'
-import Auth from './pages/Auth'
+import Auth from '@pages/Auth'
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import Landing from './pages/Landing';
-import Navbar from './components/common/Navbar';
+
 import { useEffect } from 'react';
 import { useDispatch } from "react-redux"; 
 import { login } from "@store/authSlice";
 import { authService } from "@services/index";
+
+import Landing from '@pages/Landing'; 
+import MyIdeas from '@pages/idea/MyIdeas';
+
+import Navbar from '@components/navbar/Navbar';
+import PostIdea from '@pages/idea/PostIdea';
 
 function App() { 
 
@@ -33,6 +38,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />}/> 
         <Route path="/login" element={<Auth />}/> 
+        <Route path="/idea">
+          <Route path="/idea/new" element={<PostIdea />}/>
+          <Route path="/idea/my-ideas" element={<MyIdeas />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )

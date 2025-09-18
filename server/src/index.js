@@ -20,11 +20,12 @@ app.get('/', (req, res) => {
 app.use("/api", routes);
  
 
-app.listen(config.port, () => {
-  console.log(`App listening on port ${config.port}`);
-});
-
 mongoose
   .connect(config.db_url)
-  .then(() => console.log("DB Connected"))
+  .then(() => console.log("DB Connected")).then(()=>{
+    app.listen(config.port, () => {
+      console.log(`App listening on port ${config.port}`);
+    });
+  })
   .catch((error) => console.log("Error connecting to DB:", error));
+

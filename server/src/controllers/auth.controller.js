@@ -20,8 +20,8 @@ const login = async (req, res) => {
             sameSite: config.node_env === "production"?"none": "lax",
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         }); 
-        const {username, email} = user;
-        res.json({message: "Login succesfull.", user:{username, email} });
+        const {username, email, avatar, likedIdeas} = user;
+        res.json({message: "Login succesfull.", user:{username, email, avatar, likedIdeas} });
     } catch (error) {
         res.status(500).send({message: error.message});
     }
@@ -37,7 +37,30 @@ const register = async (req, res) => {
 };
 
 const google_auth = async (req, res) => {
+    const { idToken } = req.body;
+    try {
+        const user = await authService.google_auth(idToken);  
+        const accessToken = tokenService.generateAccessToken(user);
+        const refreshToken = tokenService.generateRefreshToken(user);
 
+        res.cookie("accessToken", accessToken, {
+            httpOnly: true,
+            secure: config.node_env === "production",
+            sameSite: config.node_env === "production"?"none": "lax",
+            maxAge: 24 * 60 * 1000, // 24 mins
+        });
+
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            secure: config.node_env === "production",
+            sameSite: config.node_env === "production"?"none": "lax",
+            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        }); 
+        const {username, email, avatar, likedIdeas} = user;
+        res.json({message: "Login succesfull.", user:{username, email, avatar, likedIdeas} });
+    } catch (error) {
+        res.status(500).send({message: error.message});
+    }
 };
 
 const refresh = async (req, res) => {
@@ -63,9 +86,10 @@ const refresh = async (req, res) => {
 };
 
 const me = async (req, res) => {
-    const {username, email} = req.user;
-    res.json({message: "User fetching succesfull.", user: {username, email} });
+    const {username, email, avatar, likedIdeas} = req.user;
+    res.json({message: "User fetching succesfull.", user: {username, email, avatar, likedIdeas} });
 };
+
 const logout = async (req, res) => {
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");

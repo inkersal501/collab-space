@@ -1,0 +1,4 @@
+Auth - login, logout
+Post idea 
+list ideas
+like, comment, share

@@ -1,11 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Login from "@components/auth/Login";
 import Register from "@components/auth/Register";  
 import GoogleAuth from "@components/auth/GoogleAuth";
+import { useSelector } from "react-redux";  
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
  
   const [tab, setTab] = useState("login");
+  const {user} =  useSelector((state) => state.auth);
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(user) {
+      navigate("/");
+    }
+    //eslint-disable-next-line
+  }, [user]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full px-6">

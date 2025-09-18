@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { authService } from "@services/index";
+import { authService } from "@services";
 import { toast } from "react-toastify";
 
 const Register = ({ switchTab }) => {

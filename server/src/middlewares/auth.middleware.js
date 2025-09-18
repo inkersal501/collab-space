@@ -1,5 +1,5 @@
-import { userModel } from "../models/index.js";
-import { tokenService } from "../services/index.js";
+import { userModel, ideaModel } from "../models/index.js";
+import { tokenService, ideaService } from "../services/index.js";
 
 const authenticate = async (req, res, next) => {
   try {
@@ -18,7 +18,7 @@ const authenticate = async (req, res, next) => {
         return res.status(401).json({ message: "Invalid or expired refresh token" });
       }
   
-      const user = await userModel.findById(refreshDecoded.id).select("_id username email");
+      const user = await userModel.findById(refreshDecoded.id).select("_id username email avatar");
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
@@ -33,8 +33,9 @@ const authenticate = async (req, res, next) => {
       });
       decoded = { id: user._id };
     }
- 
-    req.user = await userModel.findById(decoded.id).select("_id username email");
+    const user = await userModel.findById(decoded.id).select("_id username email avatar").lean(); 
+    const likedIdeas = await ideaService.getMyLikes(user._id); 
+    req.user = {...user, likedIdeas};
     if (!req.user) {
       return res.status(404).json({ message: "User not found" });
     }

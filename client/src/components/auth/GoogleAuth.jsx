@@ -1,6 +1,6 @@
 import React from "react";
 import { GoogleLogin } from "@react-oauth/google";
-import { authService } from "@services/index";
+import { authService } from "@services";
 import { login } from "@store/authSlice";
 import { useDispatch } from "react-redux";
 
@@ -10,7 +10,7 @@ function GoogleAuth() {
   const handleGoogleLogin = async (credentialResponse) => {
     try {
       const idToken = credentialResponse.credential;
-      const user = await authService.googleSignIn(idToken);
+      const user = await authService.google_auth(idToken);
 
       if (user) {
         dispatch(login({ ...user }));

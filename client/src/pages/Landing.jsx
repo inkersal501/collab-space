@@ -1,8 +1,11 @@
 import React from 'react'
+import List from '../components/idea/List'
 
 function Landing() {
   return (
-    <div>Landing</div>
+    <div>
+      <List/>
+    </div>
   )
 }
 

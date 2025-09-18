@@ -1,7 +1,9 @@
-import {userModel} from "../models/index.js";
+import {ideaModel, userModel} from "../models/index.js";
 import {OAuth2Client} from "google-auth-library"; 
 import config from "../config.js";
-
+import axios from "axios";
+import { ideaService } from "./index.js";
+ 
 const google_client = new OAuth2Client(config.googleClientid);
 
 const login = async (data) => { 
@@ -18,8 +20,9 @@ const login = async (data) => {
             if(user && !(await user.isPasswordMatch(password)))
                 throw new Error("Login failed. Incorrect password.");              
             // await loginModel.create({email, token});
-            const { username, _id } = user; 
-            return {_id, username, email};
+            const { username, _id, avatar } = user; 
+            const likedIdeas = await ideaService.getMyLikes(user._id);
+            return {_id, username, email, avatar, likedIdeas};
         } catch (error) {
             throw new Error(`${error.message}.`);
         }
@@ -45,9 +48,40 @@ const register = async (data) => {
     }  
 };
 
-const google_auth = async () => {
+const google_auth = async (idToken) => {
+    try { 
+        
+        const ticket = await google_client.verifyIdToken({idToken, audience: config.google_client_id});
+        const payload = ticket.getPayload(); 
+        const {email, name, picture} =  payload;  
 
+        let user = await userModel.findOne({email});
+        let avatarBase64 = user?.avatar!=="" || null;
+
+        if (!avatarBase64 && picture) {
+            try {
+                const response = await axios.get(picture, { responseType: "arraybuffer" });
+                avatarBase64 = `data:image/jpeg;base64,${Buffer.from(response.data, "binary").toString("base64")}`;
+            } catch (err) {
+                console.error("Failed to fetch Google avatar:", err);
+                avatarBase64 = "";  
+            }
+        }
+        
+        if(!user) {
+            user = await userModel.create({email, username: name, isGoogleAuth : true, avatar: avatarBase64 || ""}); 
+        } else{ 
+            if(user.username !== name) user.username = name;
+            if(!user.avatar && avatarBase64) user.avatar = avatarBase64 || "";
+            await user.save();
+        }
+        const { _id } = user; 
+        const likedIdeas = await ideaService.getMyLikes(user._id);
+        return {_id, username : name, email, avatar: user.avatar, likedIdeas};
+    } catch (error) {
+        throw new Error(`Google SignIn failed. ${error.message}.`);
+    }
 };
- ;
+ 
 
 export default { login, register, google_auth };
