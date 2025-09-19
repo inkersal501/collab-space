@@ -52,7 +52,7 @@ function CreateIdeaForm({ isModal = false, closeModal  }) {
           rows={4}
           required
           placeholder="Share your idea..."
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
+          className="w-full px-4 py-2 text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
         />
 
         <Button type="submit" disabled={loading}>

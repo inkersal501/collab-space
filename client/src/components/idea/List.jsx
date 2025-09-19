@@ -14,7 +14,7 @@ function List() {
   });
 
   if (isLoading) return <div>Loading ideas...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (error) return <div>Error: Couldn't get the posts.</div>;
 
   return (
     <div className="w-1/2 my-4">

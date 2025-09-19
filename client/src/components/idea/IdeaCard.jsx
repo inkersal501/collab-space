@@ -11,7 +11,7 @@ function IdeaCard({ idea }) {
   const [comments, setComments] = useState(idea.comments || []); 
     
   return (
-    <div className="bg-white shadow-md rounded-lg p-4 mb-4 hover:shadow-xl">
+    <div className="bg-white rounded-xl p-4 mb-4 border border-gray-300 hover:border-indigo-400">
       
       <div className="flex justify-between items-start">
         <UserAvatar postedBy={idea.postedBy} createdAt={idea.createdAt}/>

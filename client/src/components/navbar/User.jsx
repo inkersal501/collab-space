@@ -27,7 +27,7 @@ function User() {
     <div className="relative" ref={userDropdown.ref}>
       <button
         onClick={userDropdown.toggle}
-        className="font-medium px-3 py-2 rounded-lg hover:bg-indigo-500/40 flex items-center gap-2"
+        className="font-medium px-3 py-2 rounded-xl hover:bg-indigo-500/40 flex items-center gap-2"
       > 
         {!user.avatar ? <FaUserCircle size={20} /> : <img src={user.avatar} className="w-[25px] h-[25px] rounded-full object-cover" />}
         <span>{user.username}</span>

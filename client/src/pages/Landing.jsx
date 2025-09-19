@@ -11,10 +11,12 @@ function Landing() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(()=>{ 
     if(!user || !user.username){
       navigate("/login");
     }
+    //eslint-disable-next-line
   }, [user]);
 
   return (
@@ -25,7 +27,7 @@ function Landing() {
         <List/>
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
           
-            <CreateIdeaForm isModal={true} closeModal={()=>isModalOpen(false)}/>
+            <CreateIdeaForm isModal={true} closeModal={()=>setIsModalOpen(false)}/>
    
         </Modal>
       </div>

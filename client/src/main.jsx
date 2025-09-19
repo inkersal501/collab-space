@@ -9,8 +9,9 @@ import store from "@store/store";
 //google auth
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { google_client_id } from '@utils/config.js';
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+
 //react-query cache
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 

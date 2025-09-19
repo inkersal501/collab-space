@@ -1,9 +1,13 @@
 import { useDropdown } from "@hooks/useDropdown";
 import { IoMdAddCircle } from "react-icons/io";
 import { Link } from "react-router-dom";
+import CreateIdeaForm from '../idea/CreateIdeaForm';
+import Modal from '../common/Modal';
+import { useState } from "react";
 
 function PostIdea() {
   const plusDropdown = useDropdown();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="relative" ref={plusDropdown.ref}> 
@@ -22,16 +26,17 @@ function PostIdea() {
  
       {plusDropdown.open && (
         <div className="absolute right-0 mt-2 w-40 bg-white text-gray-800 rounded-lg shadow-lg z-50">
-          <Link
-            to="/idea/new"
-            onClick={plusDropdown.toggle}
-            className="block px-4 py-2 hover:bg-gray-100"
+          <button
+            onClick={() =>{ plusDropdown.toggle(); setIsModalOpen(true); }} 
+            className="w-full block px-4 py-2 hover:bg-gray-100 text-start"
           >
             Post Idea
-          </Link>
+          </button>
         </div>
       )}
- 
+      <Modal isOpen={isModalOpen} onClose={()=>setIsModalOpen(false)}>                
+        <CreateIdeaForm isModal={true} closeModal={()=>setIsModalOpen(false)}/>  
+      </Modal>
     </div>
   );
 }
